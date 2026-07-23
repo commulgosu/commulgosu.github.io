@@ -1,11 +1,41 @@
 const menuButton = document.querySelector('.menu-toggle');
 const siteNav = document.querySelector('#site-nav');
+const tabLinks = [...document.querySelectorAll('[data-tab]')];
+const tabPanels = [...document.querySelectorAll('[role="tabpanel"]')];
 
 menuButton?.addEventListener('click', () => {
   const open = menuButton.getAttribute('aria-expanded') === 'true';
   menuButton.setAttribute('aria-expanded', String(!open));
   siteNav?.classList.toggle('is-open', !open);
 });
+
+function showTab(id, updateHash = true) {
+  const panel = document.querySelector(`#${id}`);
+  if (!panel || !tabLinks.some((link) => link.dataset.tab === id)) return;
+  tabPanels.forEach((item) => { item.hidden = item !== panel; });
+  tabLinks.forEach((link) => {
+    const selected = link.dataset.tab === id;
+    link.setAttribute('aria-selected', String(selected));
+    link.tabIndex = selected ? 0 : -1;
+  });
+  if (updateHash && window.location.hash !== `#${id}`) history.pushState(null, '', `#${id}`);
+  siteNav?.classList.remove('is-open');
+  menuButton?.setAttribute('aria-expanded', 'false');
+  panel.focus({ preventScroll: true });
+}
+
+tabLinks.forEach((link, index) => {
+  link.addEventListener('click', (event) => { event.preventDefault(); showTab(link.dataset.tab); });
+  link.addEventListener('keydown', (event) => {
+    if (!['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp'].includes(event.key)) return;
+    event.preventDefault();
+    const step = event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : -1;
+    tabLinks[(index + step + tabLinks.length) % tabLinks.length].focus();
+  });
+});
+
+window.addEventListener('hashchange', () => showTab(window.location.hash.slice(1) || 'home', false));
+showTab(window.location.hash.slice(1) || 'home', false);
 
 const canvas = document.querySelector('#game-board');
 const difficultySelect = document.querySelector('#difficulty');
@@ -51,23 +81,45 @@ function openCell() {
   return cell;
 }
 
-function drawCell(cell, color) {
+function drawMarker(cell, color) {
   context.fillStyle = color;
-  context.fillRect(cell.x * cellSize + 1, cell.y * cellSize + 1, cellSize - 2, cellSize - 2);
+  context.beginPath();
+  context.arc(cell.x * cellSize + cellSize / 2, cell.y * cellSize + cellSize / 2, cellSize * .28, 0, Math.PI * 2);
+  context.fill();
+}
+
+function drawSnake() {
+  if (!snake.length) return;
+  context.strokeStyle = '#397a00';
+  context.lineWidth = cellSize * .72;
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
+  context.beginPath();
+  snake.forEach((part, index) => {
+    const x = part.x * cellSize + cellSize / 2;
+    const y = part.y * cellSize + cellSize / 2;
+    if (index === 0) context.moveTo(x, y); else context.lineTo(x, y);
+  });
+  context.stroke();
+  const head = snake[0];
+  context.fillStyle = '#16221e';
+  context.beginPath();
+  context.arc(head.x * cellSize + cellSize / 2, head.y * cellSize + cellSize / 2, cellSize * .38, 0, Math.PI * 2);
+  context.fill();
 }
 
 function drawBoard() {
   if (!context) return;
-  context.fillStyle = '#07100d';
+  context.fillStyle = '#eef5f0';
   context.fillRect(0, 0, canvas.width, canvas.height);
-  context.strokeStyle = 'rgba(183, 255, 74, .08)';
+  context.strokeStyle = 'rgba(22, 34, 30, .08)';
   for (let i = 0; i <= gridSize; i += 1) {
     context.beginPath(); context.moveTo(i * cellSize, 0); context.lineTo(i * cellSize, canvas.height); context.stroke();
     context.beginPath(); context.moveTo(0, i * cellSize); context.lineTo(canvas.width, i * cellSize); context.stroke();
   }
-  drawCell(food, '#ff4d8d');
-  drawCell(enemy, '#55d6ff');
-  snake.forEach((part, index) => drawCell(part, index === 0 ? '#e7f5ed' : '#b7ff4a'));
+  drawMarker(food, '#d33674');
+  drawMarker(enemy, '#147a9e');
+  drawSnake();
 }
 
 function resetGame() {
@@ -80,7 +132,7 @@ function resetGame() {
   gameState = 'ready';
   updateScore();
   drawBoard();
-  setStatus('Ready');
+  setStatus('준비');
   if (pauseButton) pauseButton.disabled = true;
 }
 
@@ -102,7 +154,7 @@ function endGame() {
   gameState = 'over';
   if (score > highScore) { highScore = score; localStorage.setItem('snake-high-score', String(highScore)); }
   updateScore();
-  setStatus('Game over');
+  setStatus('게임 오버');
   if (pauseButton) pauseButton.disabled = true;
   drawBoard();
 }
@@ -127,14 +179,14 @@ function startGame() {
   if (gameState === 'over') resetGame();
   if (gameState === 'running') return;
   gameState = 'running';
-  setStatus('Running');
+  setStatus('게임 중');
   if (pauseButton) pauseButton.disabled = false;
   stopTimer();
   gameTimer = setInterval(tick, difficultySettings[difficultySelect.value]);
 }
 
 function togglePause() {
-  if (gameState === 'running') { stopTimer(); gameState = 'paused'; setStatus('Paused'); }
+  if (gameState === 'running') { stopTimer(); gameState = 'paused'; setStatus('일시정지'); }
   else if (gameState === 'paused') { startGame(); }
 }
 

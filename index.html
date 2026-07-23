@@ -1,91 +1,102 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A Samsung Electronics mobile developer portfolio.">
-  <title>Mobile Developer Portfolio</title>
+  <meta name="description" content="삼성전자 모바일 개발자의 프로페셔널 포트폴리오입니다.">
+  <title>모바일 개발자 포트폴리오</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#top">/mobile.dev</a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-    <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-      <a href="#top">Home</a>
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-      <a href="#games">Games</a>
+    <a class="brand" href="#home">모바일 개발자</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">메뉴</button>
+    <nav id="site-nav" class="site-nav" role="tablist" aria-label="주요 메뉴">
+      <a id="tab-home" href="#home" role="tab" data-tab="home" aria-controls="home" aria-selected="true">홈</a>
+      <a id="tab-about" href="#about" role="tab" data-tab="about" aria-controls="about" aria-selected="false">소개</a>
+      <a id="tab-experience" href="#experience" role="tab" data-tab="experience" aria-controls="experience" aria-selected="false">경력</a>
+      <a id="tab-contact" href="#contact" role="tab" data-tab="contact" aria-controls="contact" aria-selected="false">연락처</a>
+      <a id="tab-games" href="#games" role="tab" data-tab="games" aria-controls="games" aria-selected="false">게임</a>
     </nav>
   </header>
 
   <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <p class="eyebrow">SAMSUNG ELECTRONICS · MOBILE DEVELOPMENT</p>
-      <h1 id="hero-title">20 years of building for the small screen.</h1>
-      <p class="hero-copy">A professional profile for a mobile developer. Selected work and technical details will be added from confirmed source material.</p>
+    <section id="home" class="hero tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab-home">
+      <p class="eyebrow">삼성전자 · 모바일 개발</p>
+      <h1 id="hero-title">작은 화면을 20년 동안 만들어왔습니다.</h1>
+      <p class="hero-copy">모바일 개발자를 위한 프로페셔널 프로필입니다. 확인된 자료를 바탕으로 경력과 기술 정보를 추가합니다.</p>
     </section>
 
-    <section id="about" class="panel" aria-labelledby="about-title">
-      <p class="eyebrow">01 / ABOUT</p>
-      <h2 id="about-title">Mobile, focused, experienced.</h2>
-      <p>Currently a Samsung Electronics developer with two decades of mobile development experience.</p>
-    </section>
-
-    <section id="experience" class="panel" aria-labelledby="experience-title">
-      <p class="eyebrow">02 / EXPERIENCE</p>
-      <h2 id="experience-title">Two decades on mobile.</h2>
-      <div class="detail-grid">
-        <p><strong>Role</strong><br>Samsung Electronics developer</p>
-        <p><strong>Focus</strong><br>Mobile development</p>
-        <p><strong>Timeline</strong><br>20 years of experience</p>
+    <section id="about" class="panel tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab-about" hidden>
+      <p class="eyebrow">01 / 소개</p>
+      <h2 id="about-title">모바일에 집중해온 경험.</h2>
+      <p>현재 삼성전자 개발자이며, 모바일 개발 경력은 20년입니다.</p>
+      <p>취미로 플레이스테이션 5와 EA 스포츠 FC를 좋아합니다.</p>
+      <div class="interest-links">
+        <h3>EA 스포츠 FC 정보</h3>
+        <p>EA 스포츠 FC 26은 플레이스테이션 5에서 즐길 수 있는 축구 게임입니다. 최신 게임 정보는 공식 페이지에서 확인할 수 있습니다.</p>
+        <p>
+          <a href="https://www.ea.com/en-gb/games/ea-sports-fc/fc-26" target="_blank" rel="noopener noreferrer">EA 공식 페이지</a>
+          <span aria-hidden="true"> · </span>
+          <a href="https://www.playstation.com/en-us/games/ea-sports-fc/" target="_blank" rel="noopener noreferrer">PlayStation 공식 페이지</a>
+        </p>
       </div>
     </section>
 
-    <section id="contact" class="panel" aria-labelledby="contact-title">
-      <p class="eyebrow">03 / CONTACT</p>
-      <h2 id="contact-title">Private by design.</h2>
-      <p>Contact details are intentionally not published on this site.</p>
+    <section id="experience" class="panel tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab-experience" hidden>
+      <p class="eyebrow">02 / 경력</p>
+      <h2 id="experience-title">모바일과 함께한 20년.</h2>
+      <div class="detail-grid">
+        <p><strong>현재 역할</strong><br>삼성전자 개발자</p>
+        <p><strong>전문 분야</strong><br>모바일 개발</p>
+        <p><strong>경력 기간</strong><br>20년</p>
+      </div>
     </section>
 
-    <section id="games" class="panel game-placeholder" aria-labelledby="games-title">
-      <p class="eyebrow">04 / GAMES</p>
-      <h2 id="games-title">Snake.exe</h2>
-      <p>Eat the signal. Grow the line. Avoid the moving process.</p>
+    <section id="contact" class="panel tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab-contact" hidden>
+      <p class="eyebrow">03 / 연락처</p>
+      <h2 id="contact-title">인공지능에 관심 많은 개발자 아저씨입니다.</h2>
+      <p>모바일 개발과 새로운 기술 이야기를 나누고 싶다면 이메일을 보내주세요.</p>
+      <p><a class="contact-link" href="mailto:ohjonghwa@gmail.com">ohjonghwa@gmail.com</a></p>
+    </section>
+
+    <section id="games" class="panel game-placeholder tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab-games" hidden>
+      <p class="eyebrow">04 / 게임</p>
+      <h2 id="games-title">지렁이 게임</h2>
+      <p>먹이를 먹고 성장하며 움직이는 적을 피하세요.</p>
       <div class="game-toolbar">
-        <label for="difficulty">Difficulty
+        <label for="difficulty">난이도
           <select id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="normal" selected>Normal</option>
-            <option value="hard">Hard</option>
+            <option value="easy">쉬움</option>
+            <option value="normal" selected>보통</option>
+            <option value="hard">어려움</option>
           </select>
         </label>
-        <span>Score <strong id="score">0</strong></span>
-        <span>Best <strong id="high-score">0</strong></span>
-        <span id="game-status" role="status" aria-live="polite">Ready</span>
+        <span>점수 <strong id="score">0</strong></span>
+        <span>최고 점수 <strong id="high-score">0</strong></span>
+        <span id="game-status" role="status" aria-live="polite">준비</span>
       </div>
       <div class="game-board-wrap">
-        <canvas id="game-board" width="420" height="420" aria-label="Snake game board"></canvas>
+      <canvas id="game-board" width="420" height="420" aria-label="지렁이 게임 보드"></canvas>
       </div>
       <div class="game-actions">
-        <button id="start-game" type="button">Start</button>
-        <button id="pause-game" type="button" disabled>Pause</button>
-        <button id="restart-game" type="button">Restart</button>
+        <button id="start-game" type="button">시작</button>
+        <button id="pause-game" type="button" disabled>일시정지</button>
+        <button id="restart-game" type="button">다시 시작</button>
       </div>
-      <div class="touch-controls" aria-label="Touch controls">
-        <button type="button" data-direction="up" aria-label="Move up">▲</button>
+      <div class="touch-controls" aria-label="터치 조작">
+        <button type="button" data-direction="up" aria-label="위로 이동">▲</button>
         <div>
-          <button type="button" data-direction="left" aria-label="Move left">◀</button>
-          <button type="button" data-direction="down" aria-label="Move down">▼</button>
-          <button type="button" data-direction="right" aria-label="Move right">▶</button>
+          <button type="button" data-direction="left" aria-label="왼쪽으로 이동">◀</button>
+          <button type="button" data-direction="down" aria-label="아래로 이동">▼</button>
+          <button type="button" data-direction="right" aria-label="오른쪽으로 이동">▶</button>
         </div>
       </div>
-      <p class="game-help">Arrow keys or WASD to move · Space to pause</p>
+      <p class="game-help">방향키 또는 WASD로 이동 · 스페이스바로 일시정지</p>
     </section>
   </main>
 
-  <footer class="site-footer">Built with HTML, CSS, and JavaScript.</footer>
+  <footer class="site-footer">HTML, CSS, JavaScript로 만들었습니다.</footer>
 </body>
 </html>

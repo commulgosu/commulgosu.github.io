@@ -1,11 +1,11 @@
 :root {
-  color-scheme: dark;
-  --bg: #0b0f12;
-  --panel: #111a1d;
-  --text: #e7f5ed;
-  --muted: #91aaa0;
-  --accent: #b7ff4a;
-  --line: #263a36;
+  color-scheme: light;
+  --bg: #f7faf8;
+  --panel: #ffffff;
+  --text: #16221e;
+  --muted: #4d6259;
+  --accent: #397a00;
+  --line: #c9d8d0;
 }
 
 * { box-sizing: border-box; }
@@ -31,6 +31,7 @@ h1 { font-size: clamp(3rem, 10vw, 7rem); margin: .5rem 0 1rem; }
 h2 { font-size: clamp(2rem, 5vw, 4rem); margin: .5rem 0 1rem; }
 .hero-copy, .panel p:not(.eyebrow) { color: var(--muted); max-width: 42rem; }
 .panel { border-top: 1px solid var(--line); padding-block: 5rem; }
+.tab-panel[hidden] { display: none; }
 .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .detail-grid p { border: 1px solid var(--line); margin: 0; padding: 1rem; }
 .detail-grid strong { color: var(--accent); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
@@ -42,8 +43,8 @@ select, button { font: inherit; }
 select, .game-actions button, .touch-controls button { border: 1px solid var(--accent); background: transparent; color: var(--accent); padding: .55rem .8rem; }
 select { background: var(--panel); }
 .game-toolbar strong { color: var(--text); }
-.game-board-wrap { width: min(100%, 30rem); border: 1px solid var(--line); background: #07100d; }
-#game-board { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.game-board-wrap { width: min(100%, 30rem); border: 1px solid var(--line); background: #eef5f0; }
+#game-board { display: block; width: 100%; height: auto; }
 .game-actions button:not(:disabled):hover, .touch-controls button:not(:disabled):hover { background: var(--accent); color: var(--bg); cursor: pointer; }
 button:disabled { cursor: not-allowed; opacity: .45; }
 .touch-controls { display: grid; justify-items: center; gap: .35rem; width: min(100%, 18rem); margin-top: 1rem; }
