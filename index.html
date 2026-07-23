@@ -13,7 +13,10 @@
     <a class="brand" href="#top">/mobile.dev</a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-      <a href="#profile">Profile</a>
+      <a href="#top">Home</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
       <a href="#games">Games</a>
     </nav>
   </header>
@@ -25,16 +28,61 @@
       <p class="hero-copy">A professional profile for a mobile developer. Selected work and technical details will be added from confirmed source material.</p>
     </section>
 
-    <section id="profile" class="panel" aria-labelledby="profile-title">
-      <p class="eyebrow">01 / PROFILE</p>
-      <h2 id="profile-title">Mobile, focused, experienced.</h2>
+    <section id="about" class="panel" aria-labelledby="about-title">
+      <p class="eyebrow">01 / ABOUT</p>
+      <h2 id="about-title">Mobile, focused, experienced.</h2>
       <p>Currently a Samsung Electronics developer with two decades of mobile development experience.</p>
     </section>
 
+    <section id="experience" class="panel" aria-labelledby="experience-title">
+      <p class="eyebrow">02 / EXPERIENCE</p>
+      <h2 id="experience-title">Two decades on mobile.</h2>
+      <div class="detail-grid">
+        <p><strong>Role</strong><br>Samsung Electronics developer</p>
+        <p><strong>Focus</strong><br>Mobile development</p>
+        <p><strong>Timeline</strong><br>20 years of experience</p>
+      </div>
+    </section>
+
+    <section id="contact" class="panel" aria-labelledby="contact-title">
+      <p class="eyebrow">03 / CONTACT</p>
+      <h2 id="contact-title">Private by design.</h2>
+      <p>Contact details are intentionally not published on this site.</p>
+    </section>
+
     <section id="games" class="panel game-placeholder" aria-labelledby="games-title">
-      <p class="eyebrow">02 / GAMES</p>
+      <p class="eyebrow">04 / GAMES</p>
       <h2 id="games-title">Snake.exe</h2>
-      <p>The game area is ready. The playable snake game will be added in the next loop.</p>
+      <p>Eat the signal. Grow the line. Avoid the moving process.</p>
+      <div class="game-toolbar">
+        <label for="difficulty">Difficulty
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="normal" selected>Normal</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+        <span>Score <strong id="score">0</strong></span>
+        <span>Best <strong id="high-score">0</strong></span>
+        <span id="game-status" role="status" aria-live="polite">Ready</span>
+      </div>
+      <div class="game-board-wrap">
+        <canvas id="game-board" width="420" height="420" aria-label="Snake game board"></canvas>
+      </div>
+      <div class="game-actions">
+        <button id="start-game" type="button">Start</button>
+        <button id="pause-game" type="button" disabled>Pause</button>
+        <button id="restart-game" type="button">Restart</button>
+      </div>
+      <div class="touch-controls" aria-label="Touch controls">
+        <button type="button" data-direction="up" aria-label="Move up">▲</button>
+        <div>
+          <button type="button" data-direction="left" aria-label="Move left">◀</button>
+          <button type="button" data-direction="down" aria-label="Move down">▼</button>
+          <button type="button" data-direction="right" aria-label="Move right">▶</button>
+        </div>
+      </div>
+      <p class="game-help">Arrow keys or WASD to move · Space to pause</p>
     </section>
   </main>
 
