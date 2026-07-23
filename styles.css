@@ -32,6 +32,21 @@ h2 { font-size: clamp(2rem, 5vw, 4rem); margin: .5rem 0 1rem; }
 .hero-copy, .panel p:not(.eyebrow) { color: var(--muted); max-width: 42rem; }
 .panel { border-top: 1px solid var(--line); padding-block: 5rem; }
 .tab-panel[hidden] { display: none; }
+.market-section { border-top: 1px solid var(--line); margin-top: 4rem; padding-top: 2rem; }
+.market-heading h2 { font-size: clamp(1.75rem, 4vw, 3rem); max-width: none; }
+.market-note, .market-updated { color: var(--muted); font-size: .85rem; }
+.market-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; margin-top: 1.25rem; }
+.market-card { border: 1px solid var(--line); border-radius: 1rem; background: var(--panel); padding: 1rem; min-height: 8rem; display: grid; align-content: space-between; gap: .5rem; }
+.market-card[hidden], .market-summary[hidden], .market-updated[hidden] { display: none; }
+.market-name { color: var(--muted); font-size: .85rem; }
+.market-price { font-size: clamp(1.15rem, 2.2vw, 1.6rem); }
+.market-change { color: var(--muted); font-size: .9rem; }
+.market-change.is-positive { color: var(--accent); }
+.market-change.is-negative { color: #6b4c4c; }
+.market-summary { display: flex; align-items: center; gap: .6rem; margin-top: 1rem; border: 1px solid var(--line); border-radius: 1rem; padding: .8rem 1rem; width: fit-content; }
+.market-trend-icon { font-size: 1.4rem; }
+.market-summary.is-positive { background: #f0f8e8; color: var(--accent); }
+.market-summary.is-negative { background: #f3eeee; color: #6b4c4c; }
 .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .detail-grid p { border: 1px solid var(--line); margin: 0; padding: 1rem; }
 .detail-grid strong { color: var(--accent); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
@@ -60,6 +75,7 @@ button:disabled { cursor: not-allowed; opacity: .45; }
   .site-nav { display: none; flex-basis: 100%; padding-top: 1rem; }
   .site-nav.is-open { display: grid; }
   .detail-grid { grid-template-columns: 1fr; }
+  .market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .game-toolbar { align-items: flex-start; flex-direction: column; }
 }
 

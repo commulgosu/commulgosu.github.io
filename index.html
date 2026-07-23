@@ -26,6 +26,41 @@
       <p class="eyebrow">삼성전자 · 모바일 개발</p>
       <h1 id="hero-title">작은 화면을 20년 동안 만들어왔습니다.</h1>
       <p class="hero-copy">모바일 개발자를 위한 프로페셔널 프로필입니다. 확인된 자료를 바탕으로 경력과 기술 정보를 추가합니다.</p>
+      <section class="market-section" aria-labelledby="market-title">
+        <div class="market-heading">
+          <p class="eyebrow">오늘의 시장</p>
+          <h2 id="market-title">오늘의 주요 종목</h2>
+          <p class="market-note">한국투자증권 Open API · 원화 현재가 · 한국시간</p>
+        </div>
+        <div id="market-quotes" class="market-grid" aria-live="polite">
+          <article class="market-card" data-symbol="005930" hidden>
+            <span class="market-name">삼성전자</span>
+            <strong class="market-price" data-market-price>—</strong>
+            <span class="market-change" data-market-change>—</span>
+          </article>
+          <article class="market-card" data-symbol="000660" hidden>
+            <span class="market-name">SK하이닉스</span>
+            <strong class="market-price" data-market-price>—</strong>
+            <span class="market-change" data-market-change>—</span>
+          </article>
+          <article class="market-card" data-symbol="379800" hidden>
+            <span class="market-name">KODEX 미국S&amp;P500</span>
+            <strong class="market-price" data-market-price>—</strong>
+            <span class="market-change" data-market-change>—</span>
+          </article>
+          <article class="market-card" data-symbol="379810" hidden>
+            <span class="market-name">KODEX 미국나스닥100</span>
+            <strong class="market-price" data-market-price>—</strong>
+            <span class="market-change" data-market-change>—</span>
+          </article>
+        </div>
+        <div id="market-summary" class="market-summary" hidden aria-live="polite">
+          <span id="market-trend-icon" class="market-trend-icon" aria-hidden="true"></span>
+          <strong id="market-trend-label">전체 흐름</strong>
+          <span id="market-trend-value"></span>
+        </div>
+        <p id="market-updated" class="market-updated" hidden></p>
+      </section>
     </section>
 
     <section id="about" class="panel tab-panel" role="tabpanel" tabindex="0" aria-labelledby="tab-about" hidden>

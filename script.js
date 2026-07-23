@@ -37,6 +37,81 @@ tabLinks.forEach((link, index) => {
 window.addEventListener('hashchange', () => showTab(window.location.hash.slice(1) || 'home', false));
 showTab(window.location.hash.slice(1) || 'home', false);
 
+const marketApiUrl = 'https://commulgosu-github-io.vercel.app/api/quotes';
+const marketCards = [...document.querySelectorAll('[data-symbol]')];
+const marketSummary = document.querySelector('#market-summary');
+const marketTrendIcon = document.querySelector('#market-trend-icon');
+const marketTrendLabel = document.querySelector('#market-trend-label');
+const marketTrendValue = document.querySelector('#market-trend-value');
+const marketUpdated = document.querySelector('#market-updated');
+const wonFormatter = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW', maximumFractionDigits: 0 });
+let marketTimer = null;
+
+function parseMarketNumber(value) {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+  if (typeof value !== 'string') return null;
+  const number = Number(value.replace(/[,%]/g, '').trim());
+  return Number.isFinite(number) ? number : null;
+}
+
+function clearMarket() {
+  marketCards.forEach((card) => { card.hidden = true; });
+  if (marketSummary) { marketSummary.hidden = true; marketSummary.className = 'market-summary'; }
+  if (marketUpdated) { marketUpdated.hidden = true; marketUpdated.textContent = ''; }
+}
+
+function renderMarket(payload) {
+  clearMarket();
+  if (payload?.marketOpen === false) return;
+  const quotes = Array.isArray(payload?.quotes) ? payload.quotes : [];
+  const quoteMap = new Map(quotes.map((quote) => [String(quote.symbol), quote]));
+  const visibleQuotes = [];
+
+  marketCards.forEach((card) => {
+    const quote = quoteMap.get(card.dataset.symbol);
+    const price = parseMarketNumber(quote?.price);
+    const changeRate = parseMarketNumber(quote?.changeRate);
+    if (price === null || changeRate === null) return;
+    const priceElement = card.querySelector('[data-market-price]');
+    const changeElement = card.querySelector('[data-market-change]');
+    if (priceElement) priceElement.textContent = wonFormatter.format(price);
+    if (changeElement) {
+      changeElement.textContent = `${changeRate > 0 ? '+' : ''}${changeRate.toFixed(2)}%`;
+      changeElement.classList.toggle('is-positive', changeRate > 0);
+      changeElement.classList.toggle('is-negative', changeRate < 0);
+    }
+    card.hidden = false;
+    visibleQuotes.push({ price, changeRate });
+  });
+
+  if (visibleQuotes.length !== marketCards.length) return;
+  const totalChangeRate = visibleQuotes.reduce((total, quote) => total + quote.changeRate, 0);
+  if (totalChangeRate === 0 || !marketSummary) return;
+  const positive = totalChangeRate > 0;
+  marketSummary.hidden = false;
+  marketSummary.classList.add(positive ? 'is-positive' : 'is-negative');
+  if (marketTrendIcon) marketTrendIcon.textContent = positive ? '☀️' : '🌧️';
+  if (marketTrendLabel) marketTrendLabel.textContent = positive ? '전체 흐름 상승' : '전체 흐름 하락';
+  if (marketTrendValue) marketTrendValue.textContent = `${positive ? '+' : ''}${totalChangeRate.toFixed(2)}%`;
+  if (marketUpdated && payload.updatedAt) {
+    marketUpdated.hidden = false;
+    marketUpdated.textContent = `마지막 확인: ${payload.updatedAt} (${payload.timezone || 'Asia/Seoul'})`;
+  }
+}
+
+async function loadMarketData() {
+  try {
+    const response = await fetch(marketApiUrl, { headers: { Accept: 'application/json' }, cache: 'no-store' });
+    if (!response.ok) throw new Error('시장 데이터 응답 오류');
+    renderMarket(await response.json());
+  } catch {
+    clearMarket();
+  }
+}
+
+loadMarketData();
+marketTimer = window.setInterval(loadMarketData, 60_000);
+
 const canvas = document.querySelector('#game-board');
 const difficultySelect = document.querySelector('#difficulty');
 const scoreElement = document.querySelector('#score');
